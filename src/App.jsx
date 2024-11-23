@@ -2,7 +2,7 @@ import logo from "./assets/images/logo.svg";
 import profileImage from "./assets/images/profile1.jpg";
 import editIcon from "./assets/images/edit_icon.svg";
 import plusButton from "./assets/images/boton_mas.svg";
-import "./App.css";
+import "./index.css";
 
 function App() {
   return (
