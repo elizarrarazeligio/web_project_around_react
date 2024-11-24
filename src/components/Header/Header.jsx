@@ -3,13 +3,13 @@ import logo from "../../assets/images/logo.svg";
 function Header() {
   return (
     <>
-      <header class="header">
+      <header className="header">
         <img
           src={logo}
           alt="Logo Alrededor de los Estados Unidos"
-          class="header__logo"
+          className="header__logo"
         />
-        <div class="header__line"></div>
+        <div className="header__line"></div>
       </header>
     </>
   );
