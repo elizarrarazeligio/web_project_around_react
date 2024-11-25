@@ -5,8 +5,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  display: none;
-  opacity: 0;
+  display: flex;
+  /* opacity: 0; */
   transition-property: display opacity;
   transition-duration: 0.3s;
   transition-behavior: allow-discrete;
@@ -16,12 +16,12 @@
 }
 
 .popup_opened {
-  display: flex;
-  opacity: 1;
+  /* display: flex; */
+  /* opacity: 1;
 
   @starting-style {
     opacity: 0;
-  }
+  } */
 }
 
 .popup__container {
