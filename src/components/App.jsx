@@ -6,7 +6,7 @@ import "../index.css";
 function App() {
   return (
     <>
-      <div class="page">
+      <div className="page">
         <Header />
         <Main />
         <Footer />
