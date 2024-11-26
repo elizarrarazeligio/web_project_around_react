@@ -1,6 +1,6 @@
 export default function NewCard() {
   return (
-    <form className="form popup__form" novalidate>
+    <form className="form popup__form" noValidate>
       <fieldset className="form__format">
         <input
           id="place-input"
@@ -8,8 +8,8 @@ export default function NewCard() {
           type="text"
           name="name"
           placeholder="Lugar"
-          minlength="2"
-          maxlength="30"
+          minLength="2"
+          maxLength="30"
           required
         />
         <span className="form__input-error place-input-error"></span>

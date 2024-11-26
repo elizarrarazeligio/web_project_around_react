@@ -1,6 +1,6 @@
 export default function EditProfile() {
   return (
-    <form className="form popup__form" novalidate>
+    <form className="form popup__form" noValidate>
       <fieldset className="form__format">
         <input
           id="name-input"
@@ -8,8 +8,8 @@ export default function EditProfile() {
           type="text"
           name="name"
           placeholder="Nombre"
-          minlength="2"
-          maxlength="40"
+          minLength="2"
+          maxLength="40"
           required
         />
         <span className="form__input-error name-input-error"></span>
@@ -19,8 +19,8 @@ export default function EditProfile() {
           type="text"
           name="about"
           placeholder="Acerca de mí"
-          minlength="2"
-          maxlength="200"
+          minLength="2"
+          maxLength="200"
           required
         />
         <span className="form__input-error about-input-error"></span>
