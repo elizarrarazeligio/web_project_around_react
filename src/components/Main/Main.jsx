@@ -101,7 +101,7 @@ function Main() {
 
       <section className="photos">
         {cards.map((card) => {
-          return <Card key={card._id} card={card} />;
+          return <Card key={card._id} card={card} onOpen={handleOpenPopup} />;
         })}
       </section>
 

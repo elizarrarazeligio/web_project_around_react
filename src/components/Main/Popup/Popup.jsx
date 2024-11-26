@@ -5,14 +5,14 @@ export default function Popup(props) {
 
   return (
     <section className="popup">
-      <div className="popup__container">
+      <div className={!title ? "popup__content" : "popup__container"}>
         <img
           src={closeButton}
           alt="Botón cerrar formulario"
           className="popup__close"
           onClick={onClose}
         />
-        <h2 className="popup__title">{title}</h2>
+        {title && <h2 className="popup__title">{title}</h2>}
         {children}
       </div>
     </section>
