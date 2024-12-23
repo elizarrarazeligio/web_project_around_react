@@ -7,11 +7,13 @@ import EditProfile from "./Popup/form/EditProfile/EditProfile";
 import EditAvatar from "./Popup/form/EditAvatar/EditAvatar";
 import Card from "../Card/Card";
 import { api } from "../../utils/api";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function Main() {
   const [popup, setPopup] = useState(null);
   const [cards, setCards] = useState([]);
+  const currentUser = useContext(CurrentUserContext);
 
   // Asignación de props a variables para generación de Popups
   const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
@@ -47,7 +49,7 @@ function Main() {
           onClick={() => handleOpenPopup(editAvatarPopup)}
         >
           <img
-            src={profileImage}
+            src={currentUser.avatar}
             alt="Foto de perfil del usuario"
             className="profile__image-user"
           />
@@ -60,7 +62,7 @@ function Main() {
 
         <div className="profile__info">
           <div className="profile__heading">
-            <h1 className="profile__name">Jacques Costeau</h1>
+            <h1 className="profile__name">{currentUser.name}</h1>
             <div
               className="profile__edit"
               onClick={() => handleOpenPopup(EditProfilePopup)}
@@ -72,7 +74,7 @@ function Main() {
               />
             </div>
           </div>
-          <h2 className="profile__hobby">Explorador</h2>
+          <h2 className="profile__hobby">{currentUser.about}</h2>
         </div>
 
         <div
