@@ -1,34 +1,17 @@
 import profileImage from "../../assets/images/profile1.jpg";
 import editIcon from "../../assets/images/edit_icon.svg";
 import plusButton from "../../assets/images/boton_mas.svg";
-import { useState } from "react";
 import Popup from "./Popup/Popup";
 import NewCard from "./Popup/form/NewCard/NewCard";
 import EditProfile from "./Popup/form/EditProfile/EditProfile";
 import EditAvatar from "./Popup/form/EditAvatar/EditAvatar";
 import Card from "../Card/Card";
-
-const cards = [
-  {
-    isLiked: false,
-    _id: "5d1f0611d321eb4bdcd707dd",
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-    owner: "5d1f0611d321eb4bdcd707dd",
-    createdAt: "2019-07-05T08:10:57.741Z",
-  },
-  {
-    isLiked: false,
-    _id: "5d1f064ed321eb4bdcd707de",
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-    owner: "5d1f0611d321eb4bdcd707dd",
-    createdAt: "2019-07-05T08:11:58.324Z",
-  },
-];
+import { api } from "../../utils/api";
+import { useState, useEffect } from "react";
 
 function Main() {
   const [popup, setPopup] = useState(null);
+  const [cards, setCards] = useState([]);
 
   // Asignación de props a variables para generación de Popups
   const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
@@ -50,6 +33,11 @@ function Main() {
   function handleClosePopup() {
     setPopup(null);
   }
+
+  // Efecto para renderizar tarjetas al montar Main
+  useEffect(() => {
+    api.getInitialCards().then((data) => setCards(data));
+  }, []);
 
   return (
     <main className="content">
