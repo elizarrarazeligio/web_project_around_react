@@ -1,14 +1,23 @@
 import trashIcon from "../../assets/images/trash.png";
 import likeIcon from "../../assets/images/boton_like.svg";
 import ImagePopup from "../Main/Popup/ImagePopup/ImagePopup";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function Card(props) {
-  const { name, link, isLiked } = props.card;
+  const { name, link, likes } = props.card;
   const { onOpen } = props;
+  const currentUser = useContext(CurrentUserContext);
 
   const imageComponent = {
     children: <ImagePopup link={link} place={name} />,
   };
+
+  const isLiked = likes.some((like) => like.name === currentUser.name);
+
+  const cardLikeButtonClassName = `photos__like ${
+    isLiked ? "photos__like_active" : ""
+  }`;
 
   return (
     <div className="photos__card">
@@ -22,8 +31,12 @@ export default function Card(props) {
       <div className="photos__heading">
         <h2 className="photos__place">{name}</h2>
         <div className="photos__likes">
-          <img className="photos__like" src={likeIcon} alt="Botón de Like" />
-          <span className="photos__like-number"></span>
+          <img
+            className={cardLikeButtonClassName}
+            src={likeIcon}
+            alt="Botón de Like"
+          />
+          <span className="photos__like-number">{likes.length}</span>
         </div>
       </div>
     </div>
