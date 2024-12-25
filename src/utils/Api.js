@@ -98,7 +98,7 @@ class Api {
   }
 
   // Función Promise para añadir Like a la publicación
-  addLike(id) {
+  _addLike(id) {
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "PUT",
       headers: this._headers,
@@ -112,7 +112,7 @@ class Api {
   }
 
   // Función para borrar Like a la publicación
-  removeLike(id) {
+  _removeLike(id) {
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "DELETE",
       headers: this._headers,
@@ -123,6 +123,15 @@ class Api {
 
       return Promise.reject(`Error: ${res.status}`);
     });
+  }
+
+  // Función para cambiar estado de Like a publicación
+  changeLikeCardStatus(id, isLiked) {
+    if (!isLiked) {
+      return this._removeLike(id);
+    } else {
+      return this._addLike(id);
+    }
   }
 }
 

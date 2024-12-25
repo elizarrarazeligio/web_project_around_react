@@ -6,7 +6,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function Card(props) {
   const { name, link, likes } = props.card;
-  const { onOpen } = props;
+  const { onOpen, onCardLike } = props;
   const currentUser = useContext(CurrentUserContext);
 
   const imageComponent = {
@@ -35,6 +35,7 @@ export default function Card(props) {
             className={cardLikeButtonClassName}
             src={likeIcon}
             alt="Botón de Like"
+            onClick={() => onCardLike(props.card, isLiked)}
           />
           <span className="photos__like-number">{likes.length}</span>
         </div>

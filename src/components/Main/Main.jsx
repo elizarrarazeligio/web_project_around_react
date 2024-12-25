@@ -35,6 +35,21 @@ function Main() {
     setPopup(null);
   }
 
+  // Función para manejo de Likes
+  async function handleCardLike(card, isLiked) {
+    // Envía una solicitud a la API y obtén los datos actualizados de la tarjeta
+    await api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((currentCard) =>
+            currentCard._id === card._id ? newCard : currentCard
+          )
+        );
+      })
+      .catch((error) => console.error(error));
+  }
+
   // Efecto para renderizar tarjetas al montar Main
   useEffect(() => {
     api.getInitialCards().then((data) => setCards(data));
@@ -90,7 +105,14 @@ function Main() {
 
       <section className="photos">
         {cards.map((card) => {
-          return <Card key={card._id} card={card} onOpen={handleOpenPopup} />;
+          return (
+            <Card
+              key={card._id}
+              card={card}
+              onOpen={handleOpenPopup}
+              onCardLike={handleCardLike}
+            />
+          );
         })}
       </section>
 
