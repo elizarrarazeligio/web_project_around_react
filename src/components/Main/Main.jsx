@@ -51,7 +51,16 @@ function Main() {
   }
 
   // Función para borrar Cards
-  async function handleCardDelete() {}
+  async function handleCardDelete(card) {
+    await api
+      .deleteCard(card._id)
+      .then((deletedCard) => {
+        setCards((state) =>
+          state.filter((currentCard) => currentCard._id !== deletedCard._id)
+        );
+      })
+      .catch((error) => console.error(error));
+  }
 
   // Efecto para renderizar tarjetas al montar Main
   useEffect(() => {

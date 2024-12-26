@@ -31,6 +31,7 @@ export default function Card(props) {
         className="photos__trash"
         alt=""
         src={card.owner.name === currentUser.name ? trashIcon : ""}
+        onClick={() => onCardDelete(card)}
       />
       <div className="photos__heading">
         <h2 className="photos__place">{name}</h2>
