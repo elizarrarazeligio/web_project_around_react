@@ -50,6 +50,9 @@ function Main() {
       .catch((error) => console.error(error));
   }
 
+  // Función para borrar Cards
+  async function handleCardDelete() {}
+
   // Efecto para renderizar tarjetas al montar Main
   useEffect(() => {
     api.getInitialCards().then((data) => setCards(data));
@@ -111,6 +114,7 @@ function Main() {
               card={card}
               onOpen={handleOpenPopup}
               onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
             />
           );
         })}

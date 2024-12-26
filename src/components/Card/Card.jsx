@@ -6,7 +6,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 export default function Card(props) {
   const { name, link, likes } = props.card;
-  const { onOpen, onCardLike } = props;
+  const { onOpen, onCardLike, onCardDelete, card } = props;
   const currentUser = useContext(CurrentUserContext);
 
   const imageComponent = {
@@ -27,7 +27,11 @@ export default function Card(props) {
         alt=""
         onClick={() => onOpen(imageComponent)}
       />
-      <img className="photos__trash" src={trashIcon} alt="" />
+      <img
+        className="photos__trash"
+        alt=""
+        src={card.owner.name === currentUser.name ? trashIcon : ""}
+      />
       <div className="photos__heading">
         <h2 className="photos__place">{name}</h2>
         <div className="photos__likes">
@@ -35,7 +39,7 @@ export default function Card(props) {
             className={cardLikeButtonClassName}
             src={likeIcon}
             alt="Botón de Like"
-            onClick={() => onCardLike(props.card, isLiked)}
+            onClick={() => onCardLike(card, isLiked)}
           />
           <span className="photos__like-number">{likes.length}</span>
         </div>
