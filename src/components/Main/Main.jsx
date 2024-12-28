@@ -65,7 +65,7 @@ function Main() {
   // Efecto para renderizar tarjetas al montar Main
   useEffect(() => {
     api.getInitialCards().then((data) => setCards(data));
-  }, []);
+  }, [cards]);
 
   return (
     <main className="content">
