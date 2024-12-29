@@ -9,9 +9,9 @@ import { api } from "../../utils/api";
 import { useState, useEffect, useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function Main() {
-  const [popup, setPopup] = useState(null);
+function Main(props) {
   const [cards, setCards] = useState([]);
+  const { popup, onClosePopup, onOpenPopup } = props;
 
   const { currentUser } = useContext(CurrentUserContext);
 
@@ -25,16 +25,6 @@ function Main() {
     title: "Cambiar foto de perfil",
     children: <EditAvatar />,
   };
-
-  // Función para abrir Popup
-  function handleOpenPopup(popup) {
-    setPopup(popup);
-  }
-
-  // Función para cerrar Popup
-  function handleClosePopup() {
-    setPopup(null);
-  }
 
   // Función para manejo de Likes
   async function handleCardLike(card, isLiked) {
@@ -73,7 +63,7 @@ function Main() {
       <section className="profile">
         <div
           className="profile__image"
-          onClick={() => handleOpenPopup(editAvatarPopup)}
+          onClick={() => onOpenPopup(editAvatarPopup)}
         >
           <img
             src={currentUser.avatar}
@@ -92,7 +82,7 @@ function Main() {
             <h1 className="profile__name">{currentUser.name}</h1>
             <div
               className="profile__edit"
-              onClick={() => handleOpenPopup(EditProfilePopup)}
+              onClick={() => onOpenPopup(EditProfilePopup)}
             >
               <img
                 src={editIcon}
@@ -104,10 +94,7 @@ function Main() {
           <h2 className="profile__hobby">{currentUser.about}</h2>
         </div>
 
-        <div
-          className="profile__add"
-          onClick={() => handleOpenPopup(newCardPopup)}
-        >
+        <div className="profile__add" onClick={() => onOpenPopup(newCardPopup)}>
           <img
             src={plusButton}
             alt="Botón más"
@@ -122,7 +109,7 @@ function Main() {
             <Card
               key={card._id}
               card={card}
-              onOpen={handleOpenPopup}
+              onOpen={onOpenPopup}
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
             />
@@ -132,7 +119,7 @@ function Main() {
 
       {/* Evaluando hook para abrir Popups */}
       {popup && (
-        <Popup onClose={handleClosePopup} title={popup.title}>
+        <Popup onClose={onClosePopup} title={popup.title}>
           {popup.children}
         </Popup>
       )}
