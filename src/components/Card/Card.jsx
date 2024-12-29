@@ -7,7 +7,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 export default function Card(props) {
   const { name, link, likes } = props.card;
   const { onOpen, onCardLike, onCardDelete, card } = props;
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
   const imageComponent = {
     children: <ImagePopup link={link} place={name} />,
