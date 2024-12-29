@@ -2,8 +2,7 @@ import { useContext, useRef } from "react";
 import { CurrentUserContext } from "../../../../../contexts/CurrentUserContext";
 
 export default function EditAvatar() {
-  const userContext = useContext(CurrentUserContext);
-  const { handleUpdateAvatar } = userContext;
+  const { handleUpdateAvatar } = useContext(CurrentUserContext);
 
   // Uso de referencia para obtener valor de input de avatar
   const avatarRef = useRef();

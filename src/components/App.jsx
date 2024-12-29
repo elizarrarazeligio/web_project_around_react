@@ -21,6 +21,16 @@ function App() {
     api.getInitialCards().then((data) => setCards(data));
   }, [cards]);
 
+  // Función para abrir Popup
+  function handleOpenPopup(popup) {
+    setPopup(popup);
+  }
+
+  // Función para cerrar Popup
+  function handleClosePopup() {
+    setPopup(null);
+  }
+
   // Función para editar información de usuario
   const handleUpdateUser = (data) => {
     (async () => {
@@ -41,15 +51,15 @@ function App() {
     })();
   };
 
-  // Función para abrir Popup
-  function handleOpenPopup(popup) {
-    setPopup(popup);
-  }
-
-  // Función para cerrar Popup
-  function handleClosePopup() {
-    setPopup(null);
-  }
+  // Función para añadir nueva tarjeta
+  const handleAddCardSubmit = (data) => {
+    (async () => {
+      await api.addNewCard(data.name, data.link).then((newCard) => {
+        setCards([newCard, ...cards]);
+        handleClosePopup();
+      });
+    })();
+  };
 
   // Función para manejo de Likes
   async function handleCardLike(card, isLiked) {
@@ -82,7 +92,12 @@ function App() {
     <>
       <div className="page">
         <CurrentUserContext.Provider
-          value={{ currentUser, handleUpdateUser, handleUpdateAvatar }}
+          value={{
+            currentUser,
+            handleUpdateUser,
+            handleUpdateAvatar,
+            handleAddCardSubmit,
+          }}
         >
           <Header />
           <Main

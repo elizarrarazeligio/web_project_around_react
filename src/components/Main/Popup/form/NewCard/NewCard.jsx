@@ -1,6 +1,22 @@
+import { CurrentUserContext } from "../../../../../contexts/CurrentUserContext";
+import { useContext, useRef } from "react";
+
 export default function NewCard() {
+  const { handleAddCardSubmit } = useContext(CurrentUserContext);
+
+  const placeRef = useRef();
+  const linkRef = useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleAddCardSubmit({
+      name: placeRef.current.value,
+      link: linkRef.current.value,
+    });
+  };
+
   return (
-    <form className="form popup__form" noValidate>
+    <form className="form popup__form" noValidate onSubmit={handleSubmit}>
       <fieldset className="form__format">
         <input
           id="place-input"
@@ -11,6 +27,7 @@ export default function NewCard() {
           minLength="2"
           maxLength="30"
           required
+          ref={placeRef}
         />
         <span className="form__input-error place-input-error"></span>
         <input
@@ -20,6 +37,7 @@ export default function NewCard() {
           name="link"
           placeholder="URL de imagen"
           required
+          ref={linkRef}
         />
         <span className="form__input-error image-input-error"></span>
       </fieldset>
