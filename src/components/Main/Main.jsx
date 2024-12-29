@@ -10,9 +10,8 @@ import { useState, useEffect, useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function Main(props) {
-  const [cards, setCards] = useState([]);
-  const { popup, onClosePopup, onOpenPopup } = props;
-
+  const { popup, cards, onClosePopup, onOpenPopup, onCardLike, onCardDelete } =
+    props;
   const { currentUser } = useContext(CurrentUserContext);
 
   // Asignación de props a variables para generación de Popups
@@ -25,38 +24,6 @@ function Main(props) {
     title: "Cambiar foto de perfil",
     children: <EditAvatar />,
   };
-
-  // Función para manejo de Likes
-  async function handleCardLike(card, isLiked) {
-    // Envía una solicitud a la API y obtén los datos actualizados de la tarjeta
-    await api
-      .changeLikeCardStatus(card._id, !isLiked)
-      .then((newCard) => {
-        setCards((state) =>
-          state.map((currentCard) =>
-            currentCard._id === card._id ? newCard : currentCard
-          )
-        );
-      })
-      .catch((error) => console.error(error));
-  }
-
-  // Función para borrar Cards
-  async function handleCardDelete(card) {
-    await api
-      .deleteCard(card._id)
-      .then((deletedCard) => {
-        setCards((state) =>
-          state.filter((currentCard) => currentCard._id !== deletedCard._id)
-        );
-      })
-      .catch((error) => console.error(error));
-  }
-
-  // Efecto para renderizar tarjetas al montar Main
-  useEffect(() => {
-    api.getInitialCards().then((data) => setCards(data));
-  }, [cards]);
 
   return (
     <main className="content">
@@ -110,8 +77,8 @@ function Main(props) {
               key={card._id}
               card={card}
               onOpen={onOpenPopup}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
             />
           );
         })}
