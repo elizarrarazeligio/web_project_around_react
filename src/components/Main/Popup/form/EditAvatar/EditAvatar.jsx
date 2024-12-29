@@ -1,6 +1,20 @@
+import { useContext, useRef } from "react";
+import { CurrentUserContext } from "../../../../../contexts/CurrentUserContext";
+
 export default function EditAvatar() {
+  const userContext = useContext(CurrentUserContext);
+  const { handleUpdateAvatar } = userContext;
+
+  // Uso de referencia para obtener valor de input de avatar
+  const avatarRef = useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleUpdateAvatar(avatarRef.current.value);
+  };
+
   return (
-    <form className="form popup__form" noValidate>
+    <form className="form popup__form" noValidate onSubmit={handleSubmit}>
       <fieldset className="form__format">
         <input
           id="user-input"
@@ -9,6 +23,7 @@ export default function EditAvatar() {
           name="user"
           placeholder="URL de foto de perfil"
           required
+          ref={avatarRef}
         />
         <span className="form__input-error user-input-error"></span>
       </fieldset>

@@ -14,11 +14,21 @@ function App() {
     api.getUserInfo().then((data) => setCurrentUser(data));
   }, []);
 
-  // Función para actualizar información de usuario
+  // Función para editar información de usuario
   const handleUpdateUser = (data) => {
     (async () => {
       await api.editUserInfo(data.name, data.about).then((newData) => {
         setCurrentUser(newData);
+        handleClosePopup();
+      });
+    })();
+  };
+
+  // Función para cambiar foto de perfil de usuario
+  const handleUpdateAvatar = (avatar) => {
+    (async () => {
+      await api.changeProfilePicture(avatar).then((newAvatar) => {
+        setCurrentUser(newAvatar);
         handleClosePopup();
       });
     })();
@@ -37,7 +47,9 @@ function App() {
   return (
     <>
       <div className="page">
-        <CurrentUserContext.Provider value={{ currentUser, handleUpdateUser }}>
+        <CurrentUserContext.Provider
+          value={{ currentUser, handleUpdateUser, handleUpdateAvatar }}
+        >
           <Header />
           <Main
             popup={popup}
