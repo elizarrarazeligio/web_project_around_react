@@ -19,7 +19,7 @@ function App() {
   // Efecto para renderizar tarjetas al montar App
   useEffect(() => {
     api.getInitialCards().then((data) => setCards(data));
-  }, [cards]);
+  }, []);
 
   // Función para abrir Popup
   function handleOpenPopup(popup) {
